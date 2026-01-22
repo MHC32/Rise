@@ -116,7 +116,7 @@ transactionSchema.index({ user: 1, type: 1, date: -1 });
 transactionSchema.index({ user: 1, category: 1, date: -1 });
 
 // Validate category based on type
-transactionSchema.pre('validate', function(next) {
+transactionSchema.pre('validate', async function() {
   if (this.type === 'expense' && !EXPENSE_CATEGORIES.includes(this.category)) {
     if (this.category && !EXPENSE_CATEGORIES.includes(this.category)) {
       // Allow custom categories
@@ -128,9 +128,8 @@ transactionSchema.pre('validate', function(next) {
     }
   }
   if (this.type === 'transfer' && this.toAccount && this.account.equals(this.toAccount)) {
-    return next(new Error('Le compte source et destination ne peuvent pas être identiques'));
+    throw new Error('Le compte source et destination ne peuvent pas être identiques');
   }
-  next();
 });
 
 // Static method to get categories

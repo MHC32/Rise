@@ -68,7 +68,8 @@ accountSchema.index({ user: 1, isActive: 1 });
 
 accountSchema.virtual('formattedBalance').get(function () {
   const symbol = this.currency === 'HTG' ? 'HTG' : '$';
-  return `${this.balance.toLocaleString()} ${symbol}`;
+  const balance = this.balance ?? 0;
+  return `${balance.toLocaleString()} ${symbol}`;
 });
 
 accountSchema.set('toJSON', { virtuals: true });
