@@ -39,6 +39,9 @@ app.get('/api/health', (req, res) => {
 // Auth routes
 app.use('/api/auth', require('./routes/auth'));
 
+// Account routes
+app.use('/api/accounts', require('./routes/accounts'));
+
 // Socket.io connection handling
 io.on('connection', (socket) => {
   console.log('User connected:', socket.id);

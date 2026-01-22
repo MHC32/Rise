@@ -1,5 +1,5 @@
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function Dashboard() {
   const { user, logout } = useAuth();
@@ -16,9 +16,16 @@ function Dashboard() {
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <h1 className="text-xl font-bold text-gray-900">Rise 💰</h1>
-          <div className="flex items-center gap-4">
+          <nav className="flex items-center gap-6">
+            <Link to="/dashboard" className="text-gray-600 hover:text-gray-900">
+              Dashboard
+            </Link>
+            <Link to="/accounts" className="text-gray-600 hover:text-gray-900">
+              Comptes
+            </Link>
+            <span className="text-gray-400">|</span>
             <span className="text-gray-600">
-              Bonjour, {user?.name}
+              {user?.name}
             </span>
             <button
               onClick={handleLogout}
@@ -26,7 +33,7 @@ function Dashboard() {
             >
               Déconnexion
             </button>
-          </div>
+          </nav>
         </div>
       </header>
 
@@ -64,10 +71,10 @@ function Dashboard() {
           />
         </div>
 
-        {/* Modules coming soon */}
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Modules à venir</h3>
+        {/* Modules */}
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Modules</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <ModuleCard icon="💳" title="Comptes" status="En cours" />
+          <ModuleCard icon="💳" title="Comptes" status="Disponible" href="/accounts" />
           <ModuleCard icon="💸" title="Transactions" status="À venir" />
           <ModuleCard icon="💰" title="Sol/Tontine" status="À venir" />
           <ModuleCard icon="📊" title="Budget" status="À venir" />
@@ -93,15 +100,15 @@ function StatCard({ title, value, subtitle, icon }) {
   );
 }
 
-function ModuleCard({ icon, title, status }) {
+function ModuleCard({ icon, title, status, href }) {
   const statusColors = {
+    'Disponible': 'bg-green-100 text-green-700',
     'En cours': 'bg-blue-100 text-blue-700',
     'À venir': 'bg-gray-100 text-gray-600',
-    'Terminé': 'bg-green-100 text-green-700',
   };
 
-  return (
-    <div className="bg-white rounded-xl shadow-sm p-4 flex items-center gap-4">
+  const content = (
+    <>
       <span className="text-2xl">{icon}</span>
       <div className="flex-1">
         <h4 className="font-medium text-gray-900">{title}</h4>
@@ -109,6 +116,23 @@ function ModuleCard({ icon, title, status }) {
           {status}
         </span>
       </div>
+    </>
+  );
+
+  if (href) {
+    return (
+      <Link
+        to={href}
+        className="bg-white rounded-xl shadow-sm p-4 flex items-center gap-4 hover:shadow-md transition"
+      >
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <div className="bg-white rounded-xl shadow-sm p-4 flex items-center gap-4 opacity-60">
+      {content}
     </div>
   );
 }
