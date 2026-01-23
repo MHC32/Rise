@@ -1,5 +1,6 @@
 const Budget = require('../models/Budget');
 const Transaction = require('../models/Transaction');
+const mongoose = require('mongoose');
 
 // Helper function to calculate spent amount for a budget
 const calculateSpent = async (budgetId, userId, category, startDate, endDate) => {
@@ -341,5 +342,119 @@ exports.getBudgetStats = async (req, res) => {
       success: false,
       message: 'Erreur lors de la récupération des statistiques',
     });
+  }
+};
+
+// @desc    Allouer les fonds pour un budget
+// @route   POST /api/budgets/:id/allocate
+// @access  Private
+exports.allocateBudget = async (req, res) => {
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
+  try {
+    const { accountId } = req.body;
+
+    if (!accountId) {
+      await session.abortTransaction();
+      session.endSession();
+      return res.status(400).json({ success: false, message: 'Le compte source est requis' });
+    }
+
+    const budget = await Budget.findOne({
+      _id: req.params.id,
+      user: req.user.id
+    });
+
+    if (!budget) {
+      await session.abortTransaction();
+      session.endSession();
+      return res.status(404).json({ success: false, message: 'Budget introuvable' });
+    }
+
+    // Appeler la méthode d'allocation
+    await budget.allocate(accountId, session);
+
+    await session.commitTransaction();
+    session.endSession();
+
+    res.status(200).json({ success: true, data: budget });
+  } catch (error) {
+    await session.abortTransaction();
+    session.endSession();
+    res.status(400).json({ success: false, message: error.message });
+  }
+};
+
+// @desc    Retourner les fonds non utilisés d'un budget
+// @route   POST /api/budgets/:id/return
+// @access  Private
+exports.returnBudgetFunds = async (req, res) => {
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
+  try {
+    const budget = await Budget.findOne({
+      _id: req.params.id,
+      user: req.user.id
+    });
+
+    if (!budget) {
+      await session.abortTransaction();
+      session.endSession();
+      return res.status(404).json({ success: false, message: 'Budget introuvable' });
+    }
+
+    // Appeler la méthode de retour
+    await budget.returnUnusedFunds(session);
+
+    await session.commitTransaction();
+    session.endSession();
+
+    res.status(200).json({ success: true, data: budget });
+  } catch (error) {
+    await session.abortTransaction();
+    session.endSession();
+    res.status(400).json({ success: false, message: error.message });
+  }
+};
+
+// @desc    Retourner tous les fonds non utilisés des budgets expirés
+// @route   POST /api/budgets/return-all-expired
+// @access  Private
+exports.returnAllExpiredBudgets = async (req, res) => {
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
+  try {
+    const now = new Date();
+
+    // Trouver tous les budgets expirés non retournés
+    const expiredBudgets = await Budget.find({
+      user: req.user.id,
+      status: { $in: ['allocated', 'active'] },
+      endDate: { $lt: now },
+      returnedAt: null
+    });
+
+    const results = [];
+
+    for (const budget of expiredBudgets) {
+      await budget.returnUnusedFunds(session);
+      results.push({ budgetId: budget._id, success: true });
+    }
+
+    await session.commitTransaction();
+    session.endSession();
+
+    res.status(200).json({
+      success: true,
+      message: `${results.filter(r => r.success).length} budget(s) traité(s)`,
+      results
+    });
+  } catch (error) {
+    await session.abortTransaction();
+    session.endSession();
+    res.status(400).json({ success: false, message: error.message });
   }
 };
