@@ -182,7 +182,7 @@ Suivi de toutes les opérations financières: dépenses, revenus, et transferts 
 ## Module Budget
 
 ### Status
-⚠️ **PARTIELLEMENT IMPLÉMENTÉ** - Nécessite révision pour méthode enveloppe
+✅ **IMPLÉMENTÉ** - Méthode des enveloppes fonctionnelle
 
 ### Description
 Gestion des budgets par catégorie avec la **méthode des enveloppes** (envelope method).
@@ -758,16 +758,16 @@ Utilisation d'emojis pour les icônes:
 - [x] Frontend: Page Comptes
 - [x] Frontend: Page Transactions
 
-### Phase 2: Budget (⚠️ En cours)
+### Phase 2: Budget (✅ Complété)
 - [x] Backend: Budget model basique
 - [x] Backend: Budget controller et routes
 - [x] Frontend: Budget slice (Redux)
 - [x] Frontend: Page Budgets avec CRUD
-- [ ] **À faire**: Implémenter méthode des enveloppes
-  - [ ] Allocation de fonds (transaction vers budget)
-  - [ ] Retour automatique des fonds non utilisés
-  - [ ] Séparer budgets des autres dépenses
-  - [ ] Créer vue "Résumé Mensuel"
+- [x] Implémenter méthode des enveloppes
+  - [x] Allocation de fonds (transaction vers budget)
+  - [x] Retour automatique des fonds non utilisés
+  - [x] Séparer budgets des autres dépenses
+  - [ ] Créer vue "Résumé Mensuel" (à faire séparément)
 
 ### Phase 3: Sol/Tontine (❌ Non commencé)
 - [ ] Backend: Sol model

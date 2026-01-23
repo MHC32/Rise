@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchBudgets, createBudget, updateBudget, deleteBudget, clearError } from '../store/slices/budgetSlice';
+import { fetchBudgets, createBudget, updateBudget, deleteBudget, clearError, returnBudgetFunds, returnAllExpiredBudgets } from '../store/slices/budgetSlice';
+import AllocateBudgetModal from '../components/budgets/AllocateBudgetModal';
 
 function Budgets() {
   const dispatch = useDispatch();
@@ -9,6 +10,8 @@ function Budgets() {
   const [showModal, setShowModal] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [currentBudget, setCurrentBudget] = useState(null);
+  const [allocateModalOpen, setAllocateModalOpen] = useState(false);
+  const [selectedBudgetForAllocation, setSelectedBudgetForAllocation] = useState(null);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -114,6 +117,33 @@ function Budgets() {
     }
   };
 
+  const handleAllocate = (budget) => {
+    setSelectedBudgetForAllocation(budget);
+    setAllocateModalOpen(true);
+  };
+
+  const handleReturn = async (budgetId) => {
+    if (window.confirm('Voulez-vous vraiment retourner les fonds non utilisés?')) {
+      try {
+        await dispatch(returnBudgetFunds(budgetId)).unwrap();
+        dispatch(fetchBudgets());
+      } catch (error) {
+        console.error('Erreur lors du retour des fonds:', error);
+      }
+    }
+  };
+
+  const handleReturnAllExpired = async () => {
+    if (window.confirm('Retourner tous les fonds des budgets expirés?')) {
+      try {
+        await dispatch(returnAllExpiredBudgets()).unwrap();
+        dispatch(fetchBudgets());
+      } catch (error) {
+        console.error('Erreur:', error);
+      }
+    }
+  };
+
   const getStatusColor = (status) => {
     switch (status) {
       case 'exceeded':
@@ -152,12 +182,20 @@ function Budgets() {
           </h1>
           <p className="text-white/80 mt-2">Garde le contrôle de tes dépenses</p>
         </div>
-        <button
-          onClick={() => handleOpenModal()}
-          className="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold rounded-xl transition transform hover:scale-105 shadow-lg shadow-purple-500/30"
-        >
-          + Nouveau budget
-        </button>
+        <div className="flex gap-3">
+          <button
+            onClick={handleReturnAllExpired}
+            className="px-6 py-3 bg-gradient-to-r from-orange-400 to-orange-500 text-white rounded-xl hover:scale-105 transition-all shadow-lg"
+          >
+            Retourner Budgets Expirés
+          </button>
+          <button
+            onClick={() => handleOpenModal()}
+            className="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold rounded-xl transition transform hover:scale-105 shadow-lg shadow-purple-500/30"
+          >
+            + Nouveau budget
+          </button>
+        </div>
       </div>
 
       {/* Error Message */}
@@ -199,10 +237,31 @@ function Budgets() {
                       <span className="text-2xl">{budget.icon}</span>
                       <span className="font-bold text-lg text-gray-800">{budget.name}</span>
                     </div>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 flex-wrap">
                       <span className={`text-2xl font-extrabold ${getStatusColor(budget.status)}`}>
                         {budget.percentage}%
                       </span>
+
+                      {/* Allocation and Return Buttons */}
+                      {budget.status === 'draft' && (
+                        <button
+                          onClick={() => handleAllocate(budget)}
+                          className="px-4 py-2 bg-gradient-to-r from-green-400 to-green-500 text-white rounded-lg hover:scale-105 transition-all"
+                        >
+                          Allouer
+                        </button>
+                      )}
+
+                      {(budget.status === 'allocated' || budget.status === 'active') && !budget.returnedAt && (
+                        <button
+                          onClick={() => handleReturn(budget._id)}
+                          className="px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-500 text-white rounded-lg hover:scale-105 transition-all"
+                        >
+                          Retourner
+                        </button>
+                      )}
+
+                      {/* Existing Edit and Delete Buttons */}
                       <button
                         onClick={() => handleOpenModal(budget)}
                         className="text-purple-600 hover:text-purple-700 p-2"
@@ -406,6 +465,19 @@ function Budgets() {
             </form>
           </div>
         </div>
+      )}
+
+      {/* Allocate Budget Modal */}
+      {allocateModalOpen && selectedBudgetForAllocation && (
+        <AllocateBudgetModal
+          budget={selectedBudgetForAllocation}
+          isOpen={allocateModalOpen}
+          onClose={() => {
+            setAllocateModalOpen(false);
+            setSelectedBudgetForAllocation(null);
+            dispatch(fetchBudgets());
+          }}
+        />
       )}
     </div>
   );
