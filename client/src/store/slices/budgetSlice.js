@@ -86,6 +86,57 @@ export const fetchBudgetStats = createAsyncThunk(
   }
 );
 
+// Allouer un budget
+export const allocateBudget = createAsyncThunk(
+  'budgets/allocate',
+  async ({ budgetId, accountId }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `${API_URL}/budgets/${budgetId}/allocate`,
+        { accountId },
+        getAuthHeaders()
+      );
+      return response.data.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || 'Erreur lors de l\'allocation du budget');
+    }
+  }
+);
+
+// Retourner les fonds non utilisés d'un budget
+export const returnBudgetFunds = createAsyncThunk(
+  'budgets/return',
+  async (budgetId, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `${API_URL}/budgets/${budgetId}/return`,
+        {},
+        getAuthHeaders()
+      );
+      return response.data.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || 'Erreur lors du retour des fonds du budget');
+    }
+  }
+);
+
+// Retourner tous les fonds des budgets expirés
+export const returnAllExpiredBudgets = createAsyncThunk(
+  'budgets/returnAllExpired',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `${API_URL}/budgets/return-all-expired`,
+        {},
+        getAuthHeaders()
+      );
+      return response.data.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || 'Erreur lors du retour des fonds des budgets expirés');
+    }
+  }
+);
+
 // Initial state
 const initialState = {
   budgets: [],
@@ -190,6 +241,62 @@ const budgetSlice = createSlice({
         state.stats = action.payload;
       })
       .addCase(fetchBudgetStats.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      // Allocate budget
+      .addCase(allocateBudget.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(allocateBudget.fulfilled, (state, action) => {
+        state.loading = false;
+        // Mettre à jour le budget dans la liste
+        const index = state.budgets.findIndex(b => b._id === action.payload._id);
+        if (index !== -1) {
+          state.budgets[index] = action.payload;
+        }
+        // Mettre à jour le budget courant si c'est le même
+        if (state.currentBudget?._id === action.payload._id) {
+          state.currentBudget = action.payload;
+        }
+      })
+      .addCase(allocateBudget.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      // Return budget funds
+      .addCase(returnBudgetFunds.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(returnBudgetFunds.fulfilled, (state, action) => {
+        state.loading = false;
+        // Mettre à jour le budget dans la liste
+        const index = state.budgets.findIndex(b => b._id === action.payload._id);
+        if (index !== -1) {
+          state.budgets[index] = action.payload;
+        }
+        // Mettre à jour le budget courant si c'est le même
+        if (state.currentBudget?._id === action.payload._id) {
+          state.currentBudget = action.payload;
+        }
+      })
+      .addCase(returnBudgetFunds.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      // Return all expired budgets
+      .addCase(returnAllExpiredBudgets.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(returnAllExpiredBudgets.fulfilled, (state, action) => {
+        state.loading = false;
+        // Note: Le composant doit appeler fetchBudgets() après cette action
+        // pour obtenir la liste à jour des budgets après le traitement des budgets expirés
+      })
+      .addCase(returnAllExpiredBudgets.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
