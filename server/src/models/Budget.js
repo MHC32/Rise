@@ -118,18 +118,16 @@ budgetSchema.set('toJSON', { virtuals: true });
 budgetSchema.set('toObject', { virtuals: true });
 
 // Instance method to allocate funds from account to budget
-budgetSchema.methods.allocate = async function (session) {
+budgetSchema.methods.allocate = async function (accountId, session) {
   const Account = mongoose.model('Account');
   const Transaction = mongoose.model('Transaction');
+
+  // Définir le compte source à partir du paramètre
+  this.sourceAccount = accountId;
 
   // Vérifier que le budget est en statut draft
   if (this.status !== 'draft') {
     throw new Error('Seuls les budgets en statut draft peuvent être alloués');
-  }
-
-  // Vérifier qu'un compte source est défini
-  if (!this.sourceAccount) {
-    throw new Error('Un compte source doit être défini pour allouer le budget');
   }
 
   // Récupérer le compte source
