@@ -1,5 +1,31 @@
 @import "tailwindcss";
 
+@theme {
+  /* Custom colors from Rise wireframe */
+  --color-purple-start: #667eea;
+  --color-purple-mid: #764ba2;
+  --color-pink-custom: #f093fb;
+  --color-coral: #f5576c;
+  --color-yellow-custom: #ffd876;
+  --color-green-custom: #10b981;
+  --color-blue-custom: #3b82f6;
+  --color-dark-custom: #1e293b;
+  --color-text-muted: #64748b;
+
+  /* Main gradient used in wireframe */
+  --background-image-gradient-main: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+  /* Logo gradient */
+  --background-image-gradient-logo: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #ffd876 100%);
+
+  /* Button gradients */
+  --background-image-gradient-primary: linear-gradient(135deg, #f093fb, #f5576c);
+  --background-image-gradient-purple: linear-gradient(135deg, #667eea, #764ba2);
+  --background-image-gradient-pink: linear-gradient(135deg, #f093fb, #f5576c);
+  --background-image-gradient-yellow: linear-gradient(135deg, #ffd876, #f093fb);
+  --background-image-gradient-green: linear-gradient(135deg, #10b981, #3b82f6);
+}
+
 :root {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.5;

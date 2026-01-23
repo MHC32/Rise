@@ -39,13 +39,13 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-500 via-purple-600 to-pink-500 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-main flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Card */}
         <div className="bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl p-8">
           {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold bg-gradient-logo bg-clip-text text-transparent">
               Rise
             </h1>
             <p className="text-gray-500 mt-2">Connectez-vous à votre compte</p>
@@ -70,7 +70,7 @@ function Login() {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-start focus:border-purple-start outline-none transition"
                 placeholder="votre@email.com"
               />
             </div>
@@ -86,7 +86,7 @@ function Login() {
                 required
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-start focus:border-purple-start outline-none transition"
                 placeholder="••••••••"
               />
             </div>
@@ -94,7 +94,7 @@ function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-4 px-4 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold rounded-xl transition transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 shadow-lg shadow-purple-500/30"
+              className="w-full py-4 px-4 bg-gradient-primary text-white font-semibold rounded-xl transition transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 shadow-lg shadow-pink-custom/50"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -108,7 +108,7 @@ function Login() {
 
             <p className="text-center text-sm text-gray-600">
               Pas encore de compte ?{' '}
-              <Link to="/register" className="text-purple-600 hover:text-purple-700 font-semibold">
+              <Link to="/register" className="text-purple-start hover:text-purple-mid font-semibold">
                 Inscrivez-vous
               </Link>
             </p>

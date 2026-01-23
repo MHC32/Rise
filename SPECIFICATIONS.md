@@ -671,23 +671,42 @@ Vue dédiée qui agrège:
 
 ### Couleurs
 
-**Gradient Principal**:
+**Palette Officielle** (extraite du wireframe):
 ```css
-background: linear-gradient(to bottom right, #8B5CF6, #A855F7, #EC4899);
-/* purple-500 → purple-600 → pink-500 */
+--purple-start: #667eea;
+--purple-mid: #764ba2;
+--pink: #f093fb;
+--coral: #f5576c;
+--yellow: #ffd876;
+--green: #10b981;
+--blue: #3b82f6;
+--dark: #1e293b;
+--text-muted: #64748b;
+```
+
+**Gradient Principal** (Background App):
+```css
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+/* purple-start → purple-mid */
+```
+
+**Gradient Logo**:
+```css
+background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #ffd876 100%);
+/* purple-start → purple-mid → pink → coral → yellow */
 ```
 
 **Couleurs de Texte**:
 ```css
 /* Titres */
-background: linear-gradient(to right, #8B5CF6, #EC4899, #EAB308);
+background: linear-gradient(to right, #667eea, #f093fb, #ffd876);
 background-clip: text;
 text-fill-color: transparent;
-/* purple-500 → pink-500 → yellow-500 */
+/* purple-start → pink → yellow */
 ```
 
 **États des Budgets**:
-- OK: `text-green-600` + gradient `from-green-400 to-blue-500`
+- OK: `text-green-custom` (#10b981) + gradient `from-[#10b981] to-[#3b82f6]`
 - Warning (≥80%): `text-orange-500` + gradient `from-orange-400 to-orange-500`
 - Exceeded (≥100%): `text-red-600` + gradient `from-red-500 to-red-600`
 
@@ -708,10 +727,10 @@ backdrop-filter: blur(10px);
 
 **Boutons Primaires**:
 ```css
-background: linear-gradient(to right, #EC4899, #8B5CF6);
-/* pink-500 → purple-600 */
+background: linear-gradient(135deg, #f093fb, #f5576c);
+/* pink → coral */
 hover: scale(1.05);
-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+shadow: 0 0 20px rgba(240, 147, 251, 0.5);
 ```
 
 **Boutons Secondaires**:
@@ -724,8 +743,8 @@ border: 2px solid rgba(255, 255, 255, 0.3);
 **Inputs**:
 ```css
 border: 2px solid #E5E7EB; /* gray-200 */
-focus: border-color: #8B5CF6; /* purple-500 */
-focus: ring: 2px solid #8B5CF6;
+focus: border-color: #667eea; /* purple-start */
+focus: ring: 2px solid #667eea;
 border-radius: 12px;
 ```
 

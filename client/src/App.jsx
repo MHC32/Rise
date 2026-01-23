@@ -94,10 +94,10 @@ function App() {
 // Home component with wireframe design
 function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-500 via-purple-600 to-pink-500 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-main flex items-center justify-center p-4">
       <div className="text-center">
         {/* Logo */}
-        <h1 className="text-6xl font-bold mb-4 bg-gradient-to-r from-purple-400 via-pink-400 to-yellow-400 bg-clip-text text-transparent animate-pulse">
+        <h1 className="text-6xl font-bold mb-4 bg-gradient-logo bg-clip-text text-transparent animate-pulse">
           Rise
         </h1>
         <p className="text-white/90 text-lg mb-8">
@@ -108,7 +108,7 @@ function Home() {
         <div className="space-x-4">
           <Link
             to="/login"
-            className="inline-block px-8 py-4 bg-gradient-to-r from-pink-400 to-coral-500 text-white rounded-2xl font-semibold hover:scale-105 transition shadow-lg shadow-pink-500/30"
+            className="inline-block px-8 py-4 bg-gradient-primary text-white rounded-2xl font-semibold hover:scale-105 transition shadow-lg shadow-pink-custom/50"
           >
             Connexion
           </Link>

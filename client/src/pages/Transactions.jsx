@@ -112,7 +112,7 @@ function Transactions() {
         </div>
         <button
           onClick={handleCreateTransaction}
-          className="px-6 py-3 bg-gradient-to-r from-pink-400 to-red-400 text-white rounded-2xl font-semibold hover:scale-105 transition shadow-lg shadow-pink-500/30"
+          className="px-6 py-3 bg-gradient-to-r from-pink-400 to-red-400 text-white rounded-2xl font-semibold hover:scale-105 transition shadow-lg shadow-pink-custom/50"
         >
           + Nouvelle transaction
         </button>
@@ -141,7 +141,7 @@ function Transactions() {
         </div>
 
         <div className="bg-white/95 rounded-2xl p-6 shadow-lg">
-          <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-700 rounded-2xl flex items-center justify-center text-2xl mb-4">
+          <div className="w-14 h-14 bg-gradient-to-br from-purple-start to-purple-mid rounded-2xl flex items-center justify-center text-2xl mb-4">
             ⚖️
           </div>
           <p className="text-gray-400 text-sm font-semibold uppercase tracking-wide mb-1">Balance</p>
@@ -157,7 +157,7 @@ function Transactions() {
         <select
           value={filter.type}
           onChange={(e) => handleFilterChange('type', e.target.value)}
-          className="px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
+          className="px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-start focus:border-purple-start outline-none"
         >
           <option value="">Tous les types</option>
           <option value="expense">Dépenses</option>
@@ -168,7 +168,7 @@ function Transactions() {
         <select
           value={filter.account}
           onChange={(e) => handleFilterChange('account', e.target.value)}
-          className="px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
+          className="px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-start focus:border-purple-start outline-none"
         >
           <option value="">Tous les comptes</option>
           {accounts.map((account) => (
@@ -183,14 +183,14 @@ function Transactions() {
       <section className="bg-white/95 rounded-3xl p-6 sm:p-8 shadow-lg">
         {loading && transactions.length === 0 ? (
           <div className="flex items-center justify-center py-12">
-            <div className="w-8 h-8 border-4 border-purple-200 border-t-purple-500 rounded-full animate-spin" />
+            <div className="w-8 h-8 border-4 border-purple-start/20 border-t-purple-start rounded-full animate-spin" />
           </div>
         ) : transactions.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-gray-400 mb-4">Aucune transaction</p>
             <button
               onClick={handleCreateTransaction}
-              className="text-purple-500 font-semibold hover:text-purple-600"
+              className="text-purple-start font-semibold hover:text-purple-mid"
             >
               Ajouter votre première transaction →
             </button>
@@ -217,7 +217,7 @@ function Transactions() {
                         isIncome
                           ? 'bg-gradient-to-br from-green-400 to-blue-500'
                           : isTransfer
-                          ? 'bg-gradient-to-br from-purple-400 to-purple-600'
+                          ? 'bg-gradient-to-br from-purple-start to-purple-mid'
                           : 'bg-gradient-to-br from-pink-400 to-red-400'
                       }`}
                     >
@@ -236,7 +236,7 @@ function Transactions() {
                     <div className="flex items-center gap-4">
                       <p
                         className={`text-lg font-bold ${
-                          isExpense ? 'text-red-500' : isIncome ? 'text-green-500' : 'text-purple-500'
+                          isExpense ? 'text-red-500' : isIncome ? 'text-green-500' : 'text-purple-start'
                         }`}
                       >
                         {isExpense ? '-' : isIncome ? '+' : ''}
@@ -265,7 +265,7 @@ function Transactions() {
                 onClick={() => dispatch(fetchTransactions({ ...filter, page }))}
                 className={`w-10 h-10 rounded-xl font-semibold transition ${
                   pagination.page === page
-                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white'
+                    ? 'bg-gradient-to-r from-purple-start to-pink-custom text-white'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
               >
@@ -352,7 +352,7 @@ function TransactionModal({ accounts, onClose, onSave }) {
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-3xl w-full max-w-md max-h-[90vh] overflow-y-auto shadow-2xl">
         <div className="p-6">
-          <h2 className="text-2xl font-extrabold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent mb-6">
+          <h2 className="text-2xl font-extrabold bg-gradient-to-r from-purple-start to-pink-custom bg-clip-text text-transparent mb-6">
             Nouvelle transaction
           </h2>
 
@@ -368,7 +368,7 @@ function TransactionModal({ accounts, onClose, onSave }) {
               {[
                 { value: 'expense', label: 'Dépense', icon: '📉', color: 'from-pink-400 to-red-400' },
                 { value: 'income', label: 'Revenu', icon: '📈', color: 'from-green-400 to-blue-500' },
-                { value: 'transfer', label: 'Transfert', icon: '↔️', color: 'from-purple-400 to-purple-600' },
+                { value: 'transfer', label: 'Transfert', icon: '↔️', color: 'from-purple-start to-purple-mid' },
               ].map((type) => (
                 <button
                   key={type.value}
@@ -399,7 +399,7 @@ function TransactionModal({ accounts, onClose, onSave }) {
                 required
                 min="0.01"
                 step="0.01"
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition text-2xl font-bold"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-start focus:border-purple-start outline-none transition text-2xl font-bold"
                 placeholder="0"
               />
             </div>
@@ -414,7 +414,7 @@ function TransactionModal({ accounts, onClose, onSave }) {
                 value={formData.account}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-start focus:border-purple-start outline-none transition"
               >
                 {accounts.map((account) => (
                   <option key={account._id} value={account._id}>
@@ -436,7 +436,7 @@ function TransactionModal({ accounts, onClose, onSave }) {
                     value={formData.toAccount}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-start focus:border-purple-start outline-none transition"
                   >
                     <option value="">Sélectionner</option>
                     {accounts
@@ -460,7 +460,7 @@ function TransactionModal({ accounts, onClose, onSave }) {
                     onChange={handleChange}
                     min="0"
                     step="0.01"
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-start focus:border-purple-start outline-none transition"
                     placeholder="0"
                   />
                 </div>
@@ -481,7 +481,7 @@ function TransactionModal({ accounts, onClose, onSave }) {
                       onClick={() => setFormData((prev) => ({ ...prev, category: cat.value }))}
                       className={`p-2 rounded-xl transition flex flex-col items-center gap-1 ${
                         formData.category === cat.value
-                          ? 'bg-purple-100 border-2 border-purple-500'
+                          ? 'bg-purple-100 border-2 border-purple-start'
                           : 'bg-gray-50 border-2 border-transparent hover:border-gray-200'
                       }`}
                     >
@@ -506,7 +506,7 @@ function TransactionModal({ accounts, onClose, onSave }) {
                 value={formData.description}
                 onChange={handleChange}
                 maxLength={200}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-start focus:border-purple-start outline-none transition"
                 placeholder="Ex: Déjeuner au resto"
               />
             </div>
@@ -521,7 +521,7 @@ function TransactionModal({ accounts, onClose, onSave }) {
                 name="date"
                 value={formData.date}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-start focus:border-purple-start outline-none transition"
               />
             </div>
 
@@ -537,7 +537,7 @@ function TransactionModal({ accounts, onClose, onSave }) {
               <button
                 type="submit"
                 disabled={loading || !formData.amount || !formData.account}
-                className="flex-1 px-4 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl hover:from-pink-600 hover:to-purple-700 transition font-semibold disabled:opacity-50"
+                className="flex-1 px-4 py-3 bg-gradient-primary text-white rounded-xl transition font-semibold disabled:opacity-50"
               >
                 {loading ? 'Création...' : 'Créer'}
               </button>

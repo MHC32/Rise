@@ -53,7 +53,7 @@ function Dashboard() {
           </button>
           <Link
             to="/transactions"
-            className="px-6 py-3 bg-gradient-to-r from-pink-400 to-red-400 text-white rounded-2xl font-semibold hover:scale-105 transition shadow-lg shadow-pink-500/30"
+            className="px-6 py-3 bg-gradient-to-r from-pink-400 to-red-400 text-white rounded-2xl font-semibold hover:scale-105 transition shadow-lg shadow-pink-custom/50"
           >
             + Nouvelle transaction
           </Link>
@@ -64,7 +64,7 @@ function Dashboard() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <StatCard
           icon="💰"
-          iconBg="bg-gradient-to-br from-purple-500 to-purple-700"
+          iconBg="bg-gradient-to-br from-purple-start to-purple-mid"
           label="Solde Total HTG"
           value={`${totals.HTG.toLocaleString()} HTG`}
           change={`$${totals.USD.toLocaleString()} USD`}
@@ -99,7 +99,7 @@ function Dashboard() {
           {accounts.length === 0 ? (
             <div className="col-span-full text-center py-8 text-gray-400">
               <p className="mb-4">Aucun compte créé</p>
-              <Link to="/accounts" className="text-purple-500 font-semibold hover:text-purple-600">
+              <Link to="/accounts" className="text-purple-start font-semibold hover:text-purple-mid">
                 Créer votre premier compte →
               </Link>
             </div>
@@ -116,7 +116,7 @@ function Dashboard() {
         {recentTransactions.length === 0 ? (
           <div className="text-center py-8 text-gray-400">
             <p className="mb-4">Aucune transaction</p>
-            <Link to="/transactions" className="text-purple-500 font-semibold hover:text-purple-600">
+            <Link to="/transactions" className="text-purple-start font-semibold hover:text-purple-mid">
               Ajouter une transaction →
             </Link>
           </div>
@@ -162,11 +162,11 @@ function Section({ title, action, actionLink, children }) {
   return (
     <section className="bg-white/95 rounded-3xl p-6 sm:p-8 shadow-lg mb-6">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-extrabold bg-gradient-to-r from-purple-500 to-purple-700 bg-clip-text text-transparent">
+        <h2 className="text-2xl font-extrabold bg-gradient-to-r from-purple-start to-purple-mid bg-clip-text text-transparent">
           {title}
         </h2>
         {action && actionLink && (
-          <Link to={actionLink} className="text-purple-500 font-semibold hover:text-purple-600 transition">
+          <Link to={actionLink} className="text-purple-start font-semibold hover:text-purple-mid transition">
             {action}
           </Link>
         )}
@@ -191,7 +191,7 @@ function CompteCard({ account }) {
         <span className="text-2xl">{account.icon || typeIcons[account.type]}</span>
         <span className="font-bold text-gray-800">{account.name}</span>
       </div>
-      <p className="text-2xl font-extrabold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+      <p className="text-2xl font-extrabold bg-gradient-to-r from-purple-start to-pink-custom bg-clip-text text-transparent">
         {account.currency === 'USD' ? '$' : ''}
         {account.balance.toLocaleString()}
         {account.currency === 'HTG' ? ' HTG' : ''}
@@ -243,7 +243,7 @@ function TransactionItem({ transaction }) {
       </div>
       <p
         className={`text-lg font-bold ${
-          isExpense ? 'text-red-500' : isIncome ? 'text-green-500' : 'text-purple-500'
+          isExpense ? 'text-red-500' : isIncome ? 'text-green-500' : 'text-purple-start'
         }`}
       >
         {isExpense ? '-' : isIncome ? '+' : ''}

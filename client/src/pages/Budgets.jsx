@@ -177,7 +177,7 @@ function Budgets() {
       {/* Header */}
       <div className="flex justify-between items-center mb-8 flex-wrap gap-4">
         <div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 bg-clip-text text-transparent">
+          <h1 className="text-4xl font-bold bg-gradient-logo bg-clip-text text-transparent">
             Budgets 🎯
           </h1>
           <p className="text-white/80 mt-2">Garde le contrôle de tes dépenses</p>
@@ -191,7 +191,7 @@ function Budgets() {
           </button>
           <button
             onClick={() => handleOpenModal()}
-            className="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold rounded-xl transition transform hover:scale-105 shadow-lg shadow-purple-500/30"
+            className="px-6 py-3 bg-gradient-primary text-white font-semibold rounded-xl transition transform hover:scale-105 shadow-lg shadow-pink-custom/50"
           >
             + Nouveau budget
           </button>
@@ -219,7 +219,7 @@ function Budgets() {
               <p className="text-gray-500 text-lg mb-4">Aucun budget créé</p>
               <button
                 onClick={() => handleOpenModal()}
-                className="text-purple-600 hover:text-purple-700 font-semibold"
+                className="text-purple-start hover:text-purple-mid font-semibold"
               >
                 Créer votre premier budget →
               </button>
@@ -264,7 +264,7 @@ function Budgets() {
                       {/* Existing Edit and Delete Buttons */}
                       <button
                         onClick={() => handleOpenModal(budget)}
-                        className="text-purple-600 hover:text-purple-700 p-2"
+                        className="text-purple-start hover:text-purple-mid p-2"
                       >
                         ✏️
                       </button>
@@ -309,7 +309,7 @@ function Budgets() {
       {showModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-3xl p-8 max-w-md w-full max-h-[90vh] overflow-y-auto">
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent mb-6">
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-start to-pink-custom bg-clip-text text-transparent mb-6">
               {editMode ? 'Modifier le budget' : 'Nouveau budget'}
             </h2>
 
@@ -325,7 +325,7 @@ function Budgets() {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-start focus:border-purple-start outline-none transition"
                   placeholder="Ex: Transport"
                 />
               </div>
@@ -339,7 +339,7 @@ function Budgets() {
                   name="category"
                   value={formData.category}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-start focus:border-purple-start outline-none transition"
                 >
                   {categoryOptions.map((cat) => (
                     <option key={cat.value} value={cat.value}>
@@ -362,7 +362,7 @@ function Budgets() {
                   required
                   min="1"
                   step="0.01"
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-start focus:border-purple-start outline-none transition"
                   placeholder="10000"
                 />
               </div>
@@ -376,7 +376,7 @@ function Budgets() {
                   name="period"
                   value={formData.period}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-start focus:border-purple-start outline-none transition"
                 >
                   <option value="monthly">Mensuel</option>
                   <option value="yearly">Annuel</option>
@@ -395,7 +395,7 @@ function Budgets() {
                     value={formData.startDate}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-start focus:border-purple-start outline-none transition"
                   />
                 </div>
                 <div>
@@ -408,7 +408,7 @@ function Budgets() {
                     value={formData.endDate}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-start focus:border-purple-start outline-none transition"
                   />
                 </div>
               </div>
@@ -424,7 +424,7 @@ function Budgets() {
                   value={formData.icon}
                   onChange={handleChange}
                   maxLength="2"
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition text-2xl"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-start focus:border-purple-start outline-none transition text-2xl"
                   placeholder="🎯"
                 />
               </div>
@@ -441,7 +441,7 @@ function Budgets() {
                   onChange={handleChange}
                   min="0"
                   max="100"
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-start focus:border-purple-start outline-none transition"
                 />
               </div>
 
@@ -457,7 +457,7 @@ function Budgets() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold rounded-xl transition disabled:opacity-50"
+                  className="flex-1 px-6 py-3 bg-gradient-primary text-white font-semibold rounded-xl transition disabled:opacity-50"
                 >
                   {editMode ? 'Modifier' : 'Créer'}
                 </button>

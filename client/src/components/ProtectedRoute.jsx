@@ -6,7 +6,7 @@ function ProtectedRoute({ children }) {
 
   if (loading && token) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-500 via-purple-600 to-pink-500 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-main flex items-center justify-center">
         <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 border-4 border-white/30 border-t-white rounded-full animate-spin" />

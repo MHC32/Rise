@@ -48,7 +48,7 @@ function Layout({ children }) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-500 via-purple-600 to-pink-500">
+    <div className="min-h-screen bg-gradient-main">
       {/* Mobile Menu Toggle */}
       <button
         onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -68,7 +68,7 @@ function Layout({ children }) {
         >
           {/* Logo */}
           <div className="text-center">
-            <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-yellow-400 bg-clip-text text-transparent">
+            <h1 className="text-5xl font-bold bg-gradient-logo bg-clip-text text-transparent">
               Rise
             </h1>
             <p className="text-white/70 text-sm mt-1">Ta finance, ton style</p>
@@ -114,7 +114,7 @@ function Layout({ children }) {
           {/* User Section */}
           <div className="border-t border-white/20 pt-4">
             <div className="flex items-center gap-3 px-4 py-2">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white font-bold">
+              <div className="w-10 h-10 rounded-full bg-gradient-primary flex items-center justify-center text-white font-bold">
                 {user?.name?.charAt(0).toUpperCase() || 'U'}
               </div>
               <div className="flex-1 min-w-0">

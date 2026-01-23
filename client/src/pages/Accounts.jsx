@@ -73,7 +73,7 @@ function Accounts() {
         </div>
         <button
           onClick={handleCreateAccount}
-          className="px-6 py-3 bg-gradient-to-r from-pink-400 to-red-400 text-white rounded-2xl font-semibold hover:scale-105 transition shadow-lg shadow-pink-500/30"
+          className="px-6 py-3 bg-gradient-to-r from-pink-400 to-red-400 text-white rounded-2xl font-semibold hover:scale-105 transition shadow-lg shadow-pink-custom/50"
         >
           + Nouveau compte
         </button>
@@ -88,7 +88,7 @@ function Accounts() {
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         <div className="bg-white/95 rounded-2xl p-6 shadow-lg">
-          <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-700 rounded-2xl flex items-center justify-center text-2xl mb-4">
+          <div className="w-14 h-14 bg-gradient-to-br from-purple-start to-purple-mid rounded-2xl flex items-center justify-center text-2xl mb-4">
             💰
           </div>
           <p className="text-gray-400 text-sm font-semibold uppercase tracking-wide mb-1">Solde Total HTG</p>
@@ -114,20 +114,20 @@ function Accounts() {
 
       {/* Accounts List */}
       <section className="bg-white/95 rounded-3xl p-6 sm:p-8 shadow-lg">
-        <h2 className="text-2xl font-extrabold bg-gradient-to-r from-purple-500 to-purple-700 bg-clip-text text-transparent mb-6">
+        <h2 className="text-2xl font-extrabold bg-gradient-to-r from-purple-start to-purple-mid bg-clip-text text-transparent mb-6">
           Tous les Comptes
         </h2>
 
         {loading && accounts.length === 0 ? (
           <div className="flex items-center justify-center py-12">
-            <div className="w-8 h-8 border-4 border-purple-200 border-t-purple-500 rounded-full animate-spin" />
+            <div className="w-8 h-8 border-4 border-purple-start/20 border-t-purple-start rounded-full animate-spin" />
           </div>
         ) : accounts.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-gray-400 mb-4">Aucun compte créé</p>
             <button
               onClick={handleCreateAccount}
-              className="text-purple-500 font-semibold hover:text-purple-600"
+              className="text-purple-start font-semibold hover:text-purple-mid"
             >
               Créer votre premier compte →
             </button>
@@ -182,7 +182,7 @@ function AccountCard({ account, onEdit, onDelete }) {
           </div>
         </div>
 
-        <p className="text-2xl font-extrabold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent mb-4">
+        <p className="text-2xl font-extrabold bg-gradient-to-r from-purple-start to-pink-custom bg-clip-text text-transparent mb-4">
           {account.currency === 'USD' ? '$' : ''}
           {account.balance.toLocaleString()}
           {account.currency === 'HTG' ? ' HTG' : ''}
@@ -191,7 +191,7 @@ function AccountCard({ account, onEdit, onDelete }) {
         <div className="flex gap-2">
           <button
             onClick={onEdit}
-            className="flex-1 px-4 py-2 text-sm text-purple-600 hover:bg-purple-50 rounded-xl transition font-medium"
+            className="flex-1 px-4 py-2 text-sm text-purple-start hover:bg-purple-start/10 rounded-xl transition font-medium"
           >
             Modifier
           </button>
@@ -247,7 +247,7 @@ function AccountModal({ account, onClose, onSave }) {
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-3xl w-full max-w-md max-h-[90vh] overflow-y-auto shadow-2xl">
         <div className="p-6">
-          <h2 className="text-2xl font-extrabold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent mb-6">
+          <h2 className="text-2xl font-extrabold bg-gradient-to-r from-purple-start to-pink-custom bg-clip-text text-transparent mb-6">
             {account ? 'Modifier le compte' : 'Nouveau compte'}
           </h2>
 
@@ -269,7 +269,7 @@ function AccountModal({ account, onClose, onSave }) {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-start focus:border-purple-start outline-none transition"
                 placeholder="Ex: Compte NatCash Principal"
               />
             </div>
@@ -283,7 +283,7 @@ function AccountModal({ account, onClose, onSave }) {
                 name="type"
                 value={formData.type}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-start focus:border-purple-start outline-none transition"
               >
                 {ACCOUNT_TYPES.map((type) => (
                   <option key={type.value} value={type.value}>
@@ -303,7 +303,7 @@ function AccountModal({ account, onClose, onSave }) {
                   name="institution"
                   value={formData.institution}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-start focus:border-purple-start outline-none transition"
                 >
                   <option value="">Sélectionner une banque</option>
                   {BANKS.map((bank) => (
@@ -325,7 +325,7 @@ function AccountModal({ account, onClose, onSave }) {
                   name="provider"
                   value={formData.provider}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-start focus:border-purple-start outline-none transition"
                 >
                   <option value="">Sélectionner</option>
                   {PROVIDERS.map((p) => (
@@ -346,7 +346,7 @@ function AccountModal({ account, onClose, onSave }) {
                 name="currency"
                 value={formData.currency}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-start focus:border-purple-start outline-none transition"
               >
                 <option value="HTG">Gourde (HTG)</option>
                 <option value="USD">Dollar (USD)</option>
@@ -364,7 +364,7 @@ function AccountModal({ account, onClose, onSave }) {
                   name="initialBalance"
                   value={formData.initialBalance}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-start focus:border-purple-start outline-none transition"
                   placeholder="0"
                 />
               </div>
@@ -383,7 +383,7 @@ function AccountModal({ account, onClose, onSave }) {
                     onClick={() => setFormData((prev) => ({ ...prev, color }))}
                     className={`w-10 h-10 rounded-xl transition ${
                       formData.color === color
-                        ? 'ring-4 ring-offset-2 ring-purple-500 scale-110'
+                        ? 'ring-4 ring-offset-2 ring-purple-start scale-110'
                         : 'hover:scale-105'
                     }`}
                     style={{ backgroundColor: color }}
@@ -404,7 +404,7 @@ function AccountModal({ account, onClose, onSave }) {
               <button
                 type="submit"
                 disabled={loading}
-                className="flex-1 px-4 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl hover:from-pink-600 hover:to-purple-700 transition font-semibold disabled:opacity-50"
+                className="flex-1 px-4 py-3 bg-gradient-primary text-white rounded-xl transition font-semibold disabled:opacity-50"
               >
                 {loading ? 'Sauvegarde...' : 'Sauvegarder'}
               </button>

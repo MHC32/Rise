@@ -44,7 +44,7 @@ const AllocateBudgetModal = ({ budget, isOpen, onClose }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white/95 backdrop-blur-lg rounded-2xl p-6 max-w-md w-full mx-4 border-2 border-white/20 shadow-xl">
-        <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 bg-clip-text text-transparent">
+        <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-start via-pink-custom to-yellow-custom bg-clip-text text-transparent">
           Allouer le Budget
         </h2>
 
@@ -71,7 +71,7 @@ const AllocateBudgetModal = ({ budget, isOpen, onClose }) => {
             <select
               value={selectedAccount}
               onChange={(e) => setSelectedAccount(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-start focus:outline-none focus:ring-2 focus:ring-purple-start transition-all"
               required
             >
               <option value="">Sélectionner un compte</option>
@@ -102,7 +102,7 @@ const AllocateBudgetModal = ({ budget, isOpen, onClose }) => {
             </button>
             <button
               type="submit"
-              className="px-6 py-3 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 text-white hover:scale-105 transition-all shadow-lg hover:shadow-purple-500/50"
+              className="px-6 py-3 rounded-xl bg-gradient-primary text-white hover:scale-105 transition-all shadow-lg hover:shadow-pink-custom/50"
             >
               Allouer
             </button>
