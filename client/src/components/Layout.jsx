@@ -15,7 +15,7 @@ const navSections = [
   {
     title: 'Gestion',
     items: [
-      { path: '/budgets', icon: '🎯', label: 'Budgets', disabled: true },
+      { path: '/budgets', icon: '🎯', label: 'Budgets' },
       { path: '/epargne', icon: '💰', label: 'Épargne', disabled: true },
       { path: '/investissements', icon: '💼', label: 'Investissements', disabled: true },
     ],
