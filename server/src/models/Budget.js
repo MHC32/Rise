@@ -136,6 +136,11 @@ budgetSchema.methods.allocate = async function (accountId, session) {
     throw new Error('Compte source introuvable');
   }
 
+  // Vérifier que le compte appartient au même utilisateur
+  if (!account.user.equals(this.user)) {
+    throw new Error('Le compte source doit appartenir au même utilisateur');
+  }
+
   // Vérifier que le compte a suffisamment de fonds
   if (account.balance < this.amount) {
     throw new Error(
@@ -198,6 +203,7 @@ budgetSchema.methods.returnUnusedFunds = async function (session) {
         user: this.user,
         type: 'expense',
         category: this.category,
+        currency: this.currency,
         date: { $gte: this.startDate, $lte: this.endDate },
       },
     },
@@ -218,6 +224,11 @@ budgetSchema.methods.returnUnusedFunds = async function (session) {
     const account = await Account.findById(this.sourceAccount).session(session);
     if (!account) {
       throw new Error('Compte source introuvable');
+    }
+
+    // Vérifier que le compte appartient au même utilisateur
+    if (!account.user.equals(this.user)) {
+      throw new Error('Le compte source doit appartenir au même utilisateur');
     }
 
     // Créer une transaction de retour
