@@ -24,4 +24,9 @@ router.route('/').get(getBudgets).post(createBudget);
 
 router.route('/:id').get(getBudgetById).put(updateBudget).delete(deleteBudget);
 
+// Routes d'allocation et retour
+router.post('/return-all-expired', returnAllExpiredBudgets);
+router.post('/:id/allocate', allocateBudget);
+router.post('/:id/return', returnBudgetFunds);
+
 module.exports = router;
