@@ -10,6 +10,7 @@ import Dashboard from './pages/Dashboard';
 import Accounts from './pages/Accounts';
 import Transactions from './pages/Transactions';
 import Budgets from './pages/Budgets';
+import Sols from './pages/Sols';
 import Layout from './components/Layout';
 
 // App initializer component
@@ -73,6 +74,16 @@ function AppRoutes() {
               <ProtectedRoute>
                 <Layout>
                   <Budgets />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/sols"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <Sols />
                 </Layout>
               </ProtectedRoute>
             }

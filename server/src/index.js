@@ -48,6 +48,9 @@ app.use('/api/transactions', require('./routes/transactions'));
 // Budget routes
 app.use('/api/budgets', require('./routes/budgets'));
 
+// Sol routes
+app.use('/api/sols', require('./routes/sols'));
+
 // Socket.io connection handling
 io.on('connection', (socket) => {
   console.log('User connected:', socket.id);

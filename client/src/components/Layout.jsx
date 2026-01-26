@@ -23,7 +23,7 @@ const navSections = [
   {
     title: 'Communauté',
     items: [
-      { path: '/sols', icon: '🤝', label: 'Sols', disabled: true },
+      { path: '/sols', icon: '🤝', label: 'Sols' },
       { path: '/dettes', icon: '💸', label: 'Dettes', disabled: true },
     ],
   },
